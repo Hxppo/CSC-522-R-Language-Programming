@@ -1,0 +1,141 @@
+---
+title: "Assignment1_Xin Huang"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+__Answer for Question 1__  
+Run the following code:  
+
+```{r }
+myNum <- 4
+myFun <- function(x) {
+  myNum <- 2
+   return (myNum * yourFun(x))
+   }
+yourFun <- function(x) {
+   x * myNum
+}
+print(myFun(4))
+```
+The returned value is: 32\newline
+  
+  
+  
+  
+__Answer for Question 2__  
+```{r}
+A <- matrix(c(3,1,2,1),nrow=2,ncol=2)
+b <- matrix(c(12,5),nrow=2,ncol=1)
+Q2<-solve(A,b)
+cat("Here is the answer: ", "x = ",Q2[1,1], "y =",Q2[2,1])
+```
+Use solve() function to find the answer to the set of equations. \newline
+  
+  
+__Answer for Question 3__  
+```{r}
+solveLine <- function(u, v, r, s, b1, b2){
+  A <- matrix(c(u, r, v, s), nrow = 2, ncol = 2)
+  b <- matrix(c(b1, b2), nrow = 2, ncol = 1)
+  solution <- solve(A, b)
+  cat("x=",solution[1,1])
+  cat("\n")
+  cat("y=",solution[2,1])
+}
+solveLine(3, 2, 1, 1, 12, 5)
+```
+The function is verified. \newline
+  
+  
+__Anwsers for Question 4__  
+__Answer 4a)__  
+```{r}
+#set workspace and read file
+setwd("/Users/xinhuang/Google Drive/CSC 522 R Language Programming /Homework1")
+adultData <- read.csv("adultData.txt", header = FALSE)
+
+whole <- adultData[which(adultData$V15 ==" <=50K"), ]
+cat("Number of all people making less than or equal to 50k: ", dim(whole)[1])
+male <- whole[which(adultData$V15 ==" <=50K" & adultData$V10 == " Male"), ]
+cat("Number of males making less than or equal to 50k: ", dim(male)[1])
+
+cat("The percentage of people making 50k or less that are male is: ", 
+    dim(male)[1] / dim(whole)[1] * 100, "%")
+```
+
+__Answer for 4b)__  
+```{r}
+cat("The percentage of people making 50k that are female is: ", 
+    (dim(whole)[1] - dim(male)[1]) / dim(whole)[1] * 100, "%")
+```
+
+__Answer for 4c)__
+```{r}
+whole <- adultData[which(adultData$V15 ==" <=50K" & adultData$V13 >= 40), ]
+cat("Number of all people making less than or equal to 50k 
+    and working no less than 40 hour/week: ", dim(whole)[1])
+male <- whole[which(adultData$V15 ==" <=50K"  
+                    & adultData$V13 >= 40 & adultData$V10 == " Male"), ]
+cat("Number of males making less than or equal to 50k 
+    and working no less than 40 hour/week: ", dim(male)[1])
+
+cat("The percentage of people making 50k or less 
+    and working no less than 40 hour/week that are male is: ", 
+    dim(male)[1] / dim(whole)[1] * 100, "%")
+cat("The percentage of people making 50k or less 
+    and working no less than 40 hour/week that are female is: ", 
+    (dim(whole)[1] - dim(male)[1]) / dim(whole)[1] * 100, "%")
+```
+
+__Answer for 4d)__  
+```{r}
+whole <- adultData[which(adultData$V13 >= 40 & adultData$V15 == " >50K"), ]
+cat("Number of all people working at least 40 hour/week: ", dim(whole)[1])
+female <- whole[which(adultData$V15 ==" >50K" 
+                      & adultData$V13 >= 40 & adultData$V10 == " Female"), ]
+cat("Number of females making more than 50k 
+    and working at least 40 hour/week: ", dim(female)[1])
+
+cat("The percentage of people making more than 50k
+    and working no less than 40 hour/week that are female is: ", 
+    dim(female)[1] / dim(whole)[1] * 100, "%")
+cat("The percentage of people making more than 50k
+    and working no less than 40 hour/week that are male is: ", 
+    (dim(whole)[1] - dim(female)[1]) / dim(whole)[1] * 100, "%")
+```
+
+__Answer for 4e)__  
+```{r}
+whole <- adultData[which(adultData$V13 >= 40 & adultData$V4 == " Bachelors"), ]
+subset50K <- adultData[which(adultData$V13 >= 40 & adultData$V4 == " Bachelors" 
+                             & adultData$V15 ==" >50K" ), ]
+cat("Of the people with a bachelors degree, the percent making more
+    than fifty thousand dollars is: ", (dim(subset50K)[1]) / dim(whole)[1] * 100, "%")
+
+whole <- adultData[which(adultData$V13 >= 40 & adultData$V5 < 14), ]
+subset50K <- adultData[which(adultData$V13 >= 40 & adultData$V5 < 14 
+                             & adultData$V15 ==" >50K" ), ]
+cat("Of the people with less than 14 years of education, the
+    percent making more than fifty thousand dollars is: ", 
+    (dim(subset50K)[1]) / dim(whole)[1] * 100, "%")
+
+whole <- adultData[which(adultData$V13 >= 40 & adultData$V5 > 15), ]
+subset50K <- adultData[which(adultData$V13 >= 40 & adultData$V5 > 15
+                             & adultData$V15 ==" >50K" ), ]
+cat("Of the people with at least 16 years of education, the
+    percent making more than fifty thousand dollars is: ", 
+    (dim(subset50K)[1]) / dim(whole)[1] * 100, "%")
+
+whole <- adultData[which(adultData$V13 >= 40 & adultData$V5 > 15), ]
+cat("The number of people have at least 16 years of education is: ", dim(whole)[1])
+```
+
+__Answer for Question 5__  
+By investigating people who who as full time, the higher eduction he has, the higher chance for him to make more money. 
+Those who less than 14 years of education only have alomst 1/3 the chances of who have more than 16 years of education.
+
+Also, in all the cases above, there are less chances for women to make as much money as males d0.

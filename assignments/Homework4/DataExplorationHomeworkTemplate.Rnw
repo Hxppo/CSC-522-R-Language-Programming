@@ -1,0 +1,79 @@
+\documentclass{article}
+\title{Assignment 4}
+\author{Xin Huang}
+\begin{document}
+\SweaveOpts{concordance=TRUE,prefix.string=Tricia}
+\begin{figure}
+\begin{center}
+\includegraphics[width=8cm]{ITUlogo.png}
+\end{center}
+\end{figure}
+\begin{center}
+{\bf\Large Assignment 4}
+\end{center}
+\begin{center}
+{\Large Xin Huang}
+\end{center}
+
+<<echo=FALSE, results=verbatim>>=
+library("plyr")
+library("dplyr")
+library("tidyr")
+library("lattice")
+library("ggplot2")
+library("tibble")
+library("gridExtra")
+library("maps")
+library("rgl")
+
+setwd("/Users/xinhuang/Google Drive/CSC 522 R Language Programming /Homework4")
+@
+
+\section*{Answers to Question 1}
+\subsection*{1a)}
+<<echo=TRUE, results=verbatim>>=
+myData <- read.csv("HW01pb1data.csv", header = FALSE)
+#exam all the columns
+class(myData$V1)
+class(myData$V2)
+class(myData$V3)
+class(myData$V4)
+class(myData$V5)
+@
+Given the resluts, we can see that column V1, V2, V3 are quantitative
+V4 and V5 are qualitative.
+
+\subsection*{1b)}
+<<echo=TRUE, results=verbatim>>=
+#print out the levels
+levels(myData$V4)
+levels(myData$V5)
+@
+
+By printing out all the levels of column V4 and V5, we can see that they both contain data different data type. So when the data was read in, they can not be treated as numeric but as factors.
+
+\subsection*{1c)}
+<<echo=TRUE, results=verbatim, fig=TRUE>>=
+mat <- matrix(1 : 2, nrow = 2)
+layout(mat)
+plot(myData[, 1], pch = 20, col = "blue", cex = 0.9,
+     main = "Plot Column V1")
+plot(myData[, 4], col = "red",
+     main = "Plot Column V2")
+@
+
+In the first pic, it plots column 1 scatters data on a x-y axis. It uses index and value as a x-y values
+In the second pic, it plots column 4 as a histogram graph. It uses factors to count how many element are in each factors.
+
+\section*{Answers to Question 2}
+\subsection*{2a)}
+<<echo=TRUE, results=verbatim>>>=
+myData <- read.csv("HW01pb2data.csv",header=FALSE)
+sampleData <- sample(myData[, 1], 10000, replace=TRUE)
+@
+
+
+
+
+
+\end{document}
